@@ -3,15 +3,25 @@ import { Product } from '../models/product.model.js';
 
 const router = express.Router(); // Create an Express Router
 
+// 1. GET all products
+//router.get('/', async (req, res) => {
+//    try {
+//        const products = await Product.find({});
+//        res.json(products);
+//    } catch (error) {
+//        res.status(500).json({ message: 'Error getting products' });
+//    }
+//});
+
 router.get('/', async (req, res) => {
     const name = req.query.name; // Access query parameter
     try {
         let products;
         if (name) {
-            // 7. GET products by name search (query parameter)
+            // 7. Search products by name
             products = await Product.find({ name: { $regex: new RegExp(name, 'i') } }); // Case-insensitive search
         } else {
-            // 1. GET all products
+            // 1. Get all products
             products = await Product.find({});
         }
         res.json(products);
@@ -83,5 +93,16 @@ router.delete('/', async (req, res) => {
         res.status(500).json({ message: 'Error deleting all products' });
     }
 });
+
+// 7. GET products by name search (query parameter)
+//router.get('/', async (req, res) => {
+//   const name = req.query.name; // Access query parameter
+//    try {
+//        const products = await Product.find({ name: { $regex: new RegExp(name, 'i') } }); // Case-insensitive search
+//        res.json(products);
+//    } catch (error) {
+//        res.status(500).json({ message: 'Error searching products' });
+//    }
+//});
 
 export default router;

@@ -3,6 +3,16 @@ import { Product } from '../models/product.model.js';
 
 const router = express.Router(); // Create an Express Router
 
+// 1. GET all products
+//router.get('/', async (req, res) => {
+//    try {
+//        const products = await Product.find({});
+//        res.json(products);
+//    } catch (error) {
+//        res.status(500).json({ message: 'Error getting products' });
+//    }
+//});
+
 router.get('/', async (req, res) => {
     const name = req.query.name; // Access query parameter
     try {

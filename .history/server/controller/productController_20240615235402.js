@@ -1,19 +1,14 @@
 import express from 'express';
+import config from '../../config/config.js';
 import { Product } from '../models/product.model.js';
+import mongoose from 'mongoose';
 
 const router = express.Router(); // Create an Express Router
 
+// 1. GET all products
 router.get('/', async (req, res) => {
-    const name = req.query.name; // Access query parameter
     try {
-        let products;
-        if (name) {
-            // 7. GET products by name search (query parameter)
-            products = await Product.find({ name: { $regex: new RegExp(name, 'i') } }); // Case-insensitive search
-        } else {
-            // 1. GET all products
-            products = await Product.find({});
-        }
+        const products = await Product.find({});
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: 'Error getting products' });
@@ -81,6 +76,17 @@ router.delete('/', async (req, res) => {
         res.json({ message: 'All products deleted' });
     } catch (error) {
         res.status(500).json({ message: 'Error deleting all products' });
+    }
+});
+
+// 7. GET products by name search (query parameter)
+router.get('/', async (req, res) => {
+    const name = req.query.name; // Access query parameter
+    try {
+        const products = await Product.find({ name: { $regex: new RegExp(name, 'i') } }); // Case-insensitive search
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: 'Error searching products' });
     }
 });
 
