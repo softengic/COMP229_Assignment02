@@ -1,0 +1,17 @@
+{
+  "name": "marketplace",
+  "version": "1.0.0",
+  "description": "COMP229_Assignment02",
+  "main": "index.js",
+  "author": "IreneChan",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-loader": "^9.1.3"
+  },
+  "dependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
